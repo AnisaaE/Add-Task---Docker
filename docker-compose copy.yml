@@ -1,0 +1,45 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - data:/data/db
+    networks:
+      - app-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: max
+      MONGO_INITDB_ROOT_PASSWORD: secret
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    volumes:
+      - logs:/app/logs
+    networks:
+      - app-network
+    ports:
+      - 80:80
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    volumes:
+      - ./frontend/src:/backend/src
+    networks:
+      - app-network
+    ports:
+      - 3000:3000
+
+volumes:
+  data:
+  logs:
+
+networks:
+  app-network:
+    driver: bridge

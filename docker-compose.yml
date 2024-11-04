@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - data:/data/db
+    networks:
+      app-network:
+        ipv4_address: 172.18.0.7
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: max
+      MONGO_INITDB_ROOT_PASSWORD: secret
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    privileged: true
+    volumes:
+      - logs:/app/logs
+    networks:
+      - app-network
+    ports:
+      - 80:80
+    depends_on:
+      - mongo
+    command: sh -c "iptables -A INPUT -s 172.18.0.4 -d 0/0 -p tcp -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT && \
+                     iptables -A INPUT -s 172.18.0.6 -d 0/0 -p tcp -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT && \
+                     iptables -A INPUT -d 0/0 -p tcp --dport 80 -j DROP && \
+                     npm start"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    volumes:
+      - ./frontend/src:/backend/src
+    networks:
+      app-network:
+        ipv4_address: 172.18.0.4
+    ports:
+      - 3000:3000
+
+  user1:
+    image: appropriate/curl
+    container_name: user1
+    networks:
+      app-network:
+        ipv4_address: 172.18.0.5  
+    command: tail -f /dev/null
+    environment:
+      - USER_TYPE=regular
+
+  admin:
+    image: appropriate/curl
+    container_name: admin
+    networks:
+      app-network:
+        ipv4_address: 172.18.0.6  
+    command: tail -f /dev/null
+    environment:
+      - USER_TYPE=admin
+
+volumes:
+  data:
+  logs:
+
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
