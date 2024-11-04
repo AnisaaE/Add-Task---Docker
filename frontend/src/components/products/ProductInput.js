@@ -27,14 +27,14 @@ function ProductInput(props) {
     <section id='product-input'>
       <Card>
         <form onSubmit={productSubmitHandler}>
-          <label htmlFor='text'>New Product</label>
+          <label htmlFor='text'>New Task</label>
           <input
             type='text'
             id='text'
             value={enteredProductText}
             onChange={updateProductTextHandler}
           />
-          <button>Add Product</button>
+          <button>Add Task</button>
         </form>
       </Card>
     </section>

@@ -10,8 +10,8 @@ function ListProducts(props) {
   return (
     <section id='list-product'>
       <Card>
-        <h2>Your Products</h2>
-        {hasNoProducts && <h2>No products found. Start adding some!</h2>}
+        <h2>Your Tasks</h2>
+        {hasNoProducts && <h2>No tasks found. Start adding some!</h2>}
         <ul>
           {props.products.map((product) => (
             <ProductItem
