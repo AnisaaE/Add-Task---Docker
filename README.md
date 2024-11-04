@@ -28,5 +28,5 @@ To set up and run this project locally, follow these steps:
    ```bash
    git clone https://github.com/AnisaaE/Add-Task---Docker.git
    cd Add-Task---Docker
-   **docker-compose up --build**
+   docker-compose up --build
 
