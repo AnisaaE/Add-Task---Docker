@@ -14,7 +14,7 @@ function App() {
       setIsLoading(true);
 
       try {
-        const response = await fetch('http://backend:80/products');
+        const response = await fetch('http://localhost:80/products');
 
         const resData = await response.json();
 
@@ -39,7 +39,7 @@ function App() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://backend:80/products', {
+      const response = await fetch('http://localhost:80/products', {
         method: 'POST',
         body: JSON.stringify({
           text: productText,
