@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: mongodb
     volumes:
       - data:/data/db
@@ -74,4 +74,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 255.255.0.0
+        - subnet: 172.18.0.0/24
