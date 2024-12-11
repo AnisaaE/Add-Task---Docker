@@ -14,4 +14,5 @@ RUN chmod -R 777 /app
 
 EXPOSE 80
 
-ENTRYPOINT ["npm", "start"]
+CMD ["node", "app.js"]
+
