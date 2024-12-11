@@ -75,30 +75,30 @@ function App() {
   }
 
   async function deleteProductHandler(productId) {
-    // setIsLoading(true);
+    setIsLoading(true);
 
-    // try {
-    //   const response = await fetch('http://localhost/products/' + productId, {
-    //     method: 'DELETE',
-    //   });
+    try {
+      const response = await fetch('http://localhost/products/' + productId, {
+        method: 'DELETE',
+      });
 
-    //   const resData = await response.json();
+      const resData = await response.json();
 
-    //   if (!response.ok) {
-    //     throw new Error(resData.message || 'Deleting the product failed.');
-    //   }
+      if (!response.ok) {
+        throw new Error(resData.message || 'Deleting the product failed.');
+      }
 
-    //   setLoadedProducts((prevProducts) => {
-    //     const updatedProducts = prevProducts.filter((product) => product.id !== productId);
-    //     return updatedProducts;
-    //   });
-    // } catch (err) {
-    //   setError(
-    //     err.message ||
-    //       'Deleting the product failed - the server responsed with an error.'
-    //   );
-    // }
-    // setIsLoading(false);
+      setLoadedProducts((prevProducts) => {
+        const updatedProducts = prevProducts.filter((product) => product.id !== productId);
+        return updatedProducts;
+      });
+    } catch (err) {
+      setError(
+        err.message ||
+          'Deleting the product failed - the server responsed with an error.'
+      );
+    }
+    setIsLoading(false);
   }
 
   return (
