@@ -8,6 +8,8 @@ COPY . .
 
 RUN npm install
 
+RUN chmod +x ./node_modules/.bin/nodemon
+
 RUN chmod -R 777 /app
 
 EXPOSE 80
