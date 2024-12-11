@@ -28,9 +28,9 @@ services:
     depends_on:
       - mongo
     command: sh -c "iptables -A INPUT -s 172.18.0.4 -d 0/0 -p tcp -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT && \
-                     iptables -A INPUT -s 172.18.0.6 -d 0/0 -p tcp -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT && \
-                     iptables -A INPUT -d 0/0 -p tcp --dport 80 -j DROP && \
-                     npm start"
+                iptables -A INPUT -s 172.18.0.6 -d 0/0 -p tcp -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT && \
+                iptables -A INPUT -s 172.18.0.5 -d 0/0 -p tcp --dport 80 -j REJECT && \
+                npm start"
 
   frontend:
     build:
