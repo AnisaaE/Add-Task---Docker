@@ -1,6 +1,6 @@
 # Linux Network Management with Docker
 
-This project demonstrates how to set up and manage a Linux network environment using Docker Compose. It includes a Node.js backend connected to MongoDB, a React frontend, and utilizes `iptables` for network access control and user role management.
+This project demonstrates how to set up and manage a Linux network environment using Docker Compose. It includes a Node.js backend connected to MongoDB, a React frontend, and utilizes `iptables` for network access control and user role management. The purpose of the application is product management. Through the frontend part we can only see all available products. The frontend sends requests to the backend, which gets the products from the mongo database. Only the admin can add orders. Sending a request to add and delete orders is allowed only to the admin. Other users can see which products are in the database.
 
 ## Features
 
