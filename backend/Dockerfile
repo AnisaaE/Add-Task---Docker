@@ -8,8 +8,6 @@ COPY . .
 
 RUN npm install
 
-RUN chmod -R 777 /app
-
 EXPOSE 80
 
 CMD ["node", "app.js"]
